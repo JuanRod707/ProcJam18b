@@ -6,31 +6,24 @@ namespace Movement
     {
         public float PitchFactor;
         public float MaxPitch;
-        
-        float NegativeEuler(float angle) => (angle > 180) ? angle - 360 : angle;
+
+        private float pitch = 0f;
 
         public void Pitch(float axis)
         {
-            var rotX = PitchFactor * axis * Time.deltaTime;
-
-            if (rotX > 0)
-            {
-                rotX = NegativeEuler(transform.eulerAngles.x) < MaxPitch ? rotX : 0f;
-            }
-            else if (rotX < 0)
-            {
-                rotX = NegativeEuler(transform.eulerAngles.x) > -MaxPitch ? rotX : 0f;
-            }
-
-            transform.Rotate(transform.right * rotX);
+            pitch -= PitchFactor * axis * Time.deltaTime;
+            var euler = transform.localEulerAngles;
+            pitch = Mathf.Clamp(pitch, -MaxPitch, MaxPitch);
+            euler.x = pitch;
+            transform.localEulerAngles = euler;
             NormalizeRotation();
         }
 
         void NormalizeRotation()
         {
-            var normalizedEuler = transform.eulerAngles;
+            var normalizedEuler = transform.localEulerAngles;
             normalizedEuler.z = 0f;
-            transform.eulerAngles = normalizedEuler;
+            transform.localEulerAngles = normalizedEuler;
         }
     }
 }

@@ -25,6 +25,20 @@ namespace Movement
                 movement.MoveBackwards();
             }
 
+            if (UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                movement.StrafeLeft();
+            }
+            else if (UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                movement.StrafeRight();
+            }
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
+            {
+                movement.Jump();
+            }
+
             ReadMouseMovement();
             previousMousePos = UnityEngine.Input.mousePosition;
         }

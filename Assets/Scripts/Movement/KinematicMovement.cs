@@ -6,7 +6,8 @@ namespace Movement
     {
         public float MoveSpeed;
         public float TurnSpeed;
-        public float FallSpeed;
+        public float JumpStrength;
+        public float Gravity;
         public float CharacterSize;
         public float CharacterHeight;
         public LayerMask ColliderMask;
@@ -15,7 +16,13 @@ namespace Movement
             CharacterSize, ColliderMask);
         private bool CanMoveBackwards => !Physics.Raycast(transform.position + Vector3.up * 0.2f, -transform.forward,
             CharacterSize, ColliderMask);
+        private bool CanMoveRight => !Physics.Raycast(transform.position + Vector3.up * 0.2f, transform.right,
+            CharacterSize, ColliderMask);
+        private bool CanMoveLeft => !Physics.Raycast(transform.position + Vector3.up * 0.2f, -transform.right,
+            CharacterSize, ColliderMask);
+
         private bool FloorIsAvailable => Physics.Raycast(transform.position, -transform.up, CharacterHeight, ColliderMask);
+        private float verticalVelocity = 0;
 
         private Vector3 FloorSpot
         {
@@ -36,7 +43,7 @@ namespace Movement
             if (FloorIsAvailable)
                 StandOnFloor();
             else
-                Fall();
+                VerticalMove();
         }
 
         public void MoveForward()
@@ -50,6 +57,24 @@ namespace Movement
             if(CanMoveBackwards)
                 transform.Translate(-Vector3.forward * MoveSpeed * Time.deltaTime);
         }
+        
+        public void StrafeLeft()
+        {
+            if (CanMoveLeft)
+                transform.Translate(-Vector3.right * MoveSpeed * Time.deltaTime);
+        }
+
+        public void StrafeRight()
+        {
+            if (CanMoveRight)
+                transform.Translate(Vector3.right * MoveSpeed * Time.deltaTime);
+        }
+
+        public void Jump()
+        {
+            verticalVelocity = JumpStrength;
+            transform.Translate(Vector3.up * JumpStrength);
+        }
 
         public void TurnRight()
         {
@@ -61,13 +86,15 @@ namespace Movement
             Turn(-1f);
         }
 
-        void Fall()
+        void VerticalMove()
         {
-            transform.Translate(-Vector3.up * FallSpeed * Time.deltaTime);
+            verticalVelocity -= Gravity * Time.deltaTime;
+            transform.Translate(Vector3.up * verticalVelocity);
         }
 
         void StandOnFloor()
         {
+            verticalVelocity = 0;
             transform.position = FloorSpot + new Vector3(0f, CharacterHeight - 0.01f, 0f);
         }
         

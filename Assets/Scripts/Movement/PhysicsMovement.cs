@@ -24,6 +24,21 @@ namespace Movement
             body.AddForce(-transform.forward * MoveSpeed * Time.deltaTime);
         }
 
+        public void StrafeLeft()
+        {
+            body.AddForce(-transform.right * MoveSpeed * Time.deltaTime);
+        }
+
+        public void StrafeRight()
+        {
+            body.AddForce(transform.right * MoveSpeed * Time.deltaTime);
+        }
+
+        public void Jump()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void TurnRight()
         {
             body.AddTorque(Vector3.up * TurnSpeed * Time.deltaTime);
