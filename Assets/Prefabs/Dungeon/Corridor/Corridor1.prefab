@@ -167,7 +167,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4443781162952210}
-  - component: {fileID: 114268499982504712}
+  - component: {fileID: 114887729019085730}
   m_Layer: 0
   m_Name: Corridor1
   m_TagString: Untagged
@@ -992,7 +992,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 1, z: 0.3}
   m_Center: {x: 0, y: 0.5, z: 0.35}
---- !u!114 &114268499982504712
+--- !u!114 &114887729019085730
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1000,9 +1000,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1569645585319448}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd81f6f0e6d245b2ab91bbca6d2bf71a, type: 3}
+  m_Script: {fileID: 11500000, guid: 93ed874b023a43dbaf8a4a73ced13dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tags:
+  - corridor
+  CreatesTags:
+  - chamber
+  - corridor
   Exits:
   - {fileID: 4483962502703116}
   Bounds: {fileID: 65415207960150692}

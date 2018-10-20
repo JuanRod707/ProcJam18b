@@ -4925,6 +4925,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ed874b023a43dbaf8a4a73ced13dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tags:
+  - chamber
+  CreatesTags:
+  - corridor
   Exits:
   - {fileID: 4951583439328864}
   - {fileID: 4540120289732740}

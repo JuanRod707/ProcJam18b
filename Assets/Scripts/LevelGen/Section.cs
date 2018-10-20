@@ -4,11 +4,13 @@ using UnityEngine;
 
 namespace LevelGen
 {
-    public class Chamber : MonoBehaviour
+    public class Section : MonoBehaviour
     {
+        public string[] Tags;
+        public string[] CreatesTags;
         public Transform[] Exits;
         public Collider Bounds;
-
+        
         private Level levelContainer;
         
         public void Initialize(Level level)
@@ -25,13 +27,13 @@ namespace LevelGen
         {
             foreach (var e in Exits)
             {
-                GenerateCorridor(e);
+                GenerateSection(e);
             }
         }
         
-        void GenerateCorridor(Transform exit)
+        void GenerateSection(Transform exit)
         {
-            var candidate = Instantiate(levelContainer.Corridors.PickOne(), exit).GetComponent<Corridor>();
+            var candidate = Instantiate(levelContainer.PickSectionWithTag(CreatesTags), exit).GetComponent<Section>();
             if (levelContainer.IsSectionValid(candidate.Bounds, Bounds))
             {
                 candidate.Initialize(levelContainer);

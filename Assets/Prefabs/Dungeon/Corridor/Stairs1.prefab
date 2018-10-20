@@ -149,7 +149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4135695915380318}
-  - component: {fileID: 114917053909709396}
+  - component: {fileID: 114389937066686182}
   m_Layer: 0
   m_Name: Stairs1
   m_TagString: Untagged
@@ -1807,7 +1807,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.15, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &114917053909709396
+--- !u!114 &114389937066686182
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1815,9 +1815,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1324773401327778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd81f6f0e6d245b2ab91bbca6d2bf71a, type: 3}
+  m_Script: {fileID: 11500000, guid: 93ed874b023a43dbaf8a4a73ced13dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tags:
+  - corridor
+  CreatesTags:
+  - chamber
+  - corridor
   Exits:
   - {fileID: 4055685867171498}
   Bounds: {fileID: 65076398851706472}

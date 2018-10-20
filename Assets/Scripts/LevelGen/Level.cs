@@ -8,8 +8,8 @@ namespace LevelGen
     public class Level : MonoBehaviour
     {
         public int MaxLevelSize;
-        public GameObject[] Chambers;
-        public GameObject[] Corridors;
+        public GameObject[] Sections;
+        public string[] InitialSectionTags;
 
         private List<Collider> registeredColliders = new List<Collider>();
 
@@ -23,7 +23,7 @@ namespace LevelGen
 
         private void CreateInitialChamber()
         {
-            Instantiate(Chambers.PickOne(), transform).GetComponent<Chamber>().Initialize(this);
+            Instantiate(PickSectionWithTag(InitialSectionTags), transform).GetComponent<Section>().Initialize(this);
         }
 
         public bool IsSectionValid(Collider newSection, Collider sectionToIgnore)
@@ -36,6 +36,11 @@ namespace LevelGen
         {
             registeredColliders.Add(newSection);
             LevelSize--;
+        }
+
+        public GameObject PickSectionWithTag(string[] tags)
+        {
+            return Sections.Where(x => x.GetComponent<Section>().Tags.Intersect(tags).Any()).PickOne();
         }
     }
 }
