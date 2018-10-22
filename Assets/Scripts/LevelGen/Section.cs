@@ -19,15 +19,17 @@ namespace LevelGen
             transform.SetParent(levelContainer.transform);
             levelContainer.RegisterNewSection(Bounds);
             
-            if (levelContainer.LevelSize > 0)
-                GenerateAnnexes();
+            GenerateAnnexes();
         }
 
         void GenerateAnnexes()
         {
             foreach (var e in Exits)
             {
-                GenerateSection(e);
+                if (levelContainer.LevelSize > 0)
+                    GenerateSection(e);
+                else
+                    PlaceDeadEnd(e);
             }
         }
         
@@ -41,7 +43,13 @@ namespace LevelGen
             else
             {
                  Destroy(candidate.gameObject);
+                PlaceDeadEnd(exit);
             }
+        }
+
+        void PlaceDeadEnd(Transform exit)
+        {
+            Instantiate(levelContainer.DeadEnds.PickOne(), exit);
         }
     }
 }

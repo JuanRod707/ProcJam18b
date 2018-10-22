@@ -9,6 +9,7 @@ namespace LevelGen
     {
         public int MaxLevelSize;
         public GameObject[] Sections;
+        public GameObject[] DeadEnds;
         public string[] InitialSectionTags;
 
         private List<Collider> registeredColliders = new List<Collider>();
