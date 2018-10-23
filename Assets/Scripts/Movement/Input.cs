@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using Weapons;
 
 namespace Movement
 {
     public class Input : MonoBehaviour
     {
+        public Weapon weapon; 
+
         Movement movement;
         public CameraLook cameraLook;
         private Vector3 previousMousePos;
@@ -37,6 +40,11 @@ namespace Movement
             if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
             {
                 movement.Jump();
+            }
+
+            if (UnityEngine.Input.GetMouseButtonDown(0))
+            {
+                weapon.Fire(Vector3.zero);
             }
 
             ReadMouseMovement();
