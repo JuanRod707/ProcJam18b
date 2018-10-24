@@ -4,6 +4,7 @@ namespace Weapons
 {
     public class Weapon :MonoBehaviour
     {
+        public GameObject HitEffect;
         private WeaponDisplay display;
 
         void Start()

@@ -5,7 +5,8 @@ namespace Movement
 {
     public class Input : MonoBehaviour
     {
-        public Weapon weapon; 
+        public Weapon weapon;
+        public float MouseSensitivity;
 
         Movement movement;
         public CameraLook cameraLook;
@@ -14,7 +15,8 @@ namespace Movement
         void Start()
         {
             movement = GetComponent<Movement>();
-            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         
         void Update()
@@ -53,7 +55,7 @@ namespace Movement
 
         private void ReadMouseMovement()
         {
-            var mouseDelta = UnityEngine.Input.mousePosition - previousMousePos;
+            var mouseDelta = new Vector2(UnityEngine.Input.GetAxis("Mouse X"), UnityEngine.Input.GetAxis("Mouse Y")) * MouseSensitivity; 
             movement.Turn(mouseDelta.x);
             cameraLook.Pitch(mouseDelta.y);
         }
