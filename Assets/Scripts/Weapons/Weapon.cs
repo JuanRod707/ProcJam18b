@@ -1,20 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Weapons.Stats;
 
 namespace Weapons
 {
-    public class Weapon :MonoBehaviour
+    public interface Weapon
     {
-        public GameObject HitEffect;
-        private WeaponDisplay display;
+        float CurrentAccuracy { get; }
+        float Inaccuracy { get; }
+        int CurrentAmmo { get; }
 
-        void Start()
-        {
-            display = GetComponent<WeaponDisplay>();
-        }
-
-        public void Fire(Vector3 target)
-        {
-            display.Fire();
-        }
+        void Attack();
+        void Reload();
+        WeaponStats GetWeaponStats();
     }
 }

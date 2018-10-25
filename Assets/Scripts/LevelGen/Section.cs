@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Scripts;
+using Helpers;
 using UnityEngine;
 
 namespace LevelGen
@@ -10,6 +10,7 @@ namespace LevelGen
         public string[] CreatesTags;
         public Transform[] Exits;
         public Collider Bounds;
+        public int DeadEndChance;
         
         private Level levelContainer;
         
@@ -27,7 +28,10 @@ namespace LevelGen
             foreach (var e in Exits)
             {
                 if (levelContainer.LevelSize > 0)
-                    GenerateSection(e);
+                    if(RandomService.RollD100(DeadEndChance))
+                        PlaceDeadEnd(e);
+                    else
+                        GenerateSection(e);
                 else
                     PlaceDeadEnd(e);
             }

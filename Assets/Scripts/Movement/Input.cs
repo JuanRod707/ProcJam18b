@@ -1,13 +1,15 @@
-﻿using UnityEngine;
+﻿using UI;
+using UnityEngine;
 using Weapons;
 
 namespace Movement
 {
     public class Input : MonoBehaviour
     {
-        public Weapon weapon;
+        public AdvancedCrosshair UI;
         public float MouseSensitivity;
 
+        Weapon weapon;
         Movement movement;
         public CameraLook cameraLook;
         private Vector3 previousMousePos;
@@ -17,6 +19,9 @@ namespace Movement
             movement = GetComponent<Movement>();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            weapon = GetComponentInChildren<Weapon>();
+            UI.AttachToWeapon(weapon);
         }
         
         void Update()
@@ -44,9 +49,9 @@ namespace Movement
                 movement.Jump();
             }
 
-            if (UnityEngine.Input.GetMouseButtonDown(0))
+            if (UnityEngine.Input.GetMouseButton(0))
             {
-                weapon.Fire(Vector3.zero);
+                weapon.Attack();
             }
 
             ReadMouseMovement();
