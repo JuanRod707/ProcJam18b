@@ -5,13 +5,17 @@ namespace Weapons.Generation
 {
     public class WeaponGenerator
     {
+        private const float AbsoluteMinAccuracy = 15;
+
         public static PistolStats GenerateNewPistol(ItemQuality quality)
         {
             var genData = PistolGenerationPresets.GenData[quality];
             var stats = new PistolStats();
 
             stats.Accuracy = RandomService.GetRandom(genData.MinAccuracy, genData.MaxAccuracy);
-            stats.MinAccuracy = stats.Accuracy - 20;
+            stats.MinAccuracy = stats.Accuracy > AbsoluteMinAccuracy * 2
+                ? stats.Accuracy - 15
+                : AbsoluteMinAccuracy;
             stats.AimDistance = 50f;
             stats.AimRecovery = 0.8f;
             stats.Quality = quality;
@@ -30,7 +34,9 @@ namespace Weapons.Generation
             var stats = new SmgStats();
 
             stats.Accuracy = RandomService.GetRandom(genData.MinAccuracy, genData.MaxAccuracy);
-            stats.MinAccuracy = stats.Accuracy - 20;
+            stats.MinAccuracy = stats.Accuracy > AbsoluteMinAccuracy * 2
+                ? stats.Accuracy - 15
+                : AbsoluteMinAccuracy;
             stats.AimDistance = 50f;
             stats.AimRecovery = 0.8f;
             stats.Quality = quality;
@@ -49,7 +55,9 @@ namespace Weapons.Generation
             var stats = new ShotgunStats();
 
             stats.Accuracy = RandomService.GetRandom(genData.MinAccuracy, genData.MaxAccuracy);
-            stats.MinAccuracy = stats.Accuracy - 20;
+            stats.MinAccuracy = stats.Accuracy > AbsoluteMinAccuracy * 2
+                ? stats.Accuracy - 15
+                : AbsoluteMinAccuracy;
             stats.AimDistance = 50f;
             stats.AimRecovery = 0.8f;
             stats.Quality = quality;

@@ -1,4 +1,4 @@
-﻿using UI;
+﻿using Magic;
 using UnityEngine;
 using Weapons;
 
@@ -6,63 +6,52 @@ namespace Movement
 {
     public class Input : MonoBehaviour
     {
-        public AdvancedCrosshair UI;
+        public Character Character;
         public float MouseSensitivity;
 
-        Weapon weapon;
-        Movement movement;
-        public CameraLook cameraLook;
-        private Vector3 previousMousePos;
+        Staff Staff => Character.Staff;
+        Weapon Weapon => Character.Weapon;
+        Movement Movement => Character.Movement;
+        public CameraLook Viewpoint => Character.Viewpoint;
         
         void Start()
         {
-            movement = GetComponent<Movement>();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-
-            weapon = GetComponentInChildren<Weapon>();
-            UI.AttachToWeapon(weapon);
         }
         
         void Update()
         {
             if (UnityEngine.Input.GetKey(KeyCode.W))
-            {
-                movement.MoveForward();
-            }
+                Movement.MoveForward();
             else if (UnityEngine.Input.GetKey(KeyCode.S))
-            {
-                movement.MoveBackwards();
-            }
+                Movement.MoveBackwards();
 
             if (UnityEngine.Input.GetKey(KeyCode.A))
-            {
-                movement.StrafeLeft();
-            }
+                Movement.StrafeLeft();
             else if (UnityEngine.Input.GetKey(KeyCode.D))
-            {
-                movement.StrafeRight();
-            }
+                Movement.StrafeRight();
 
             if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
-            {
-                movement.Jump();
-            }
+                Movement.Jump();
 
             if (UnityEngine.Input.GetMouseButton(0))
-            {
-                weapon.Attack();
-            }
+                Weapon.Attack();
+
+            if (UnityEngine.Input.GetMouseButtonDown(1))
+                Staff.Cast();
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.R))
+                Weapon.Reload();
 
             ReadMouseMovement();
-            previousMousePos = UnityEngine.Input.mousePosition;
         }
 
         private void ReadMouseMovement()
         {
             var mouseDelta = new Vector2(UnityEngine.Input.GetAxis("Mouse X"), UnityEngine.Input.GetAxis("Mouse Y")) * MouseSensitivity; 
-            movement.Turn(mouseDelta.x);
-            cameraLook.Pitch(mouseDelta.y);
+            Movement.Turn(mouseDelta.x);
+            Viewpoint.Pitch(mouseDelta.y);
         }
     }
 }

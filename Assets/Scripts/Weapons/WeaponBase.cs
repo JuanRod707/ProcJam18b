@@ -40,14 +40,13 @@ namespace Weapons
         {
             if (!isCycling && CurrentAmmo > 0)
             {
-                var aimPoint = GetRandomArcPoint();
-                var firePosition = transform.position;
-                var ray = new Ray(firePosition, aimPoint - firePosition);
+                var shotLine = cam.transform.forward + Random.insideUnitSphere * Inaccuracy * 0.02f;
+                var ray = new Ray(cam.transform.position, shotLine);
                 RaycastHit hit;
-
+                
                 if (Physics.Raycast(ray, out hit, stats.Range, layer))
                 {
-                    display.DisplayHitScenery(ray.GetPoint(hit.distance - 0.5f));
+                    display.DisplayHitScenery(ray.GetPoint(hit.distance - 0.1f));
                     display.DisplayShot(hit.point);
                 }
 
@@ -75,21 +74,6 @@ namespace Weapons
             isCycling = true;
             yield return new WaitForSeconds(stats.RateOfFire);
             isCycling = false;
-        }
-
-        protected Vector3 GetRandomArcPoint()
-        {
-            var randomPoint = Random.insideUnitSphere * Inaccuracy;
-            var result = (cam.transform.forward * stats.Range) + randomPoint;
-
-            var ray = new Ray(cam.transform.position, result);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, stats.Range))
-            {
-                result = hit.point;
-            }
-
-            return result;
         }
     }
 }

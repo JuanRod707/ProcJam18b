@@ -36,15 +36,14 @@ namespace Weapons
         }
 
         void FirePellet()
-        { 
-            var aimPoint = GetRandomArcPoint();
-            var firePosition = transform.position;
-            var ray = new Ray(firePosition, aimPoint - firePosition);
+        {
+            var shotLine = cam.transform.forward + Random.insideUnitSphere * Inaccuracy * 0.02f;
+            var ray = new Ray(cam.transform.position, shotLine);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, stats.Range, layer))
             {
-                display.DisplayHitScenery(ray.GetPoint(hit.distance - 0.5f));
+                display.DisplayHitScenery(ray.GetPoint(hit.distance - 0.1f));
                 display.DisplayShot(hit.point);
             }
         }
