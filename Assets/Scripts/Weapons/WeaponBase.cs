@@ -16,6 +16,7 @@ namespace Weapons
         protected WeaponDisplay display;
         protected WeaponStats stats;
         protected bool isCycling;
+        protected bool isReloading;
         protected int currentFiringMode;
         protected float accuracyModifier;
         protected float currentAccuracy;
@@ -24,6 +25,8 @@ namespace Weapons
         public float Inaccuracy => 1 - (100f / CurrentAccuracy);
 
         public WeaponStats GetWeaponStats() => stats;
+
+        protected bool CanFire => !isCycling && !isReloading && CurrentAmmo > 0;
 
         public virtual void Initialize(WeaponStats stats)
         {
@@ -34,17 +37,27 @@ namespace Weapons
             display = GetComponent<WeaponDisplay>();
         }
 
-        public void Reload() => CurrentAmmo = stats.AmmoPerMag;
+        public void Reload()
+        {
+            display.Reload();
+            StartCoroutine(WaitForReload());
+        }
+
+        void EndReload()
+        {
+            isReloading = false;
+            CurrentAmmo = stats.AmmoPerMag;
+        }
 
         public virtual void Attack()
         {
-            if (!isCycling && CurrentAmmo > 0)
+            if (CanFire)
             {
                 var shotLine = cam.transform.forward + Random.insideUnitSphere * Inaccuracy * 0.02f;
                 var ray = new Ray(cam.transform.position, shotLine);
                 RaycastHit hit;
                 
-                if (Physics.Raycast(ray, out hit, stats.Range, layer))
+                if (Physics.Raycast(ray, out hit, 100, layer))
                 {
                     display.DisplayHitScenery(ray.GetPoint(hit.distance - 0.1f));
                     display.DisplayShot(hit.point);
@@ -61,7 +74,7 @@ namespace Weapons
             }
         }
 
-        void Update()
+        protected void Update()
         {
             if (!isCycling && currentAccuracy < stats.Accuracy)
             {
@@ -74,6 +87,13 @@ namespace Weapons
             isCycling = true;
             yield return new WaitForSeconds(stats.RateOfFire);
             isCycling = false;
+        }
+
+        IEnumerator WaitForReload()
+        {
+            isReloading = true;
+            yield return new WaitForSeconds(stats.ReloadTime);
+            EndReload();
         }
     }
 }

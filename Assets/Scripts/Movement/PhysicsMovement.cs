@@ -6,7 +6,8 @@ namespace Movement
     {
         public float MoveSpeed;
         public float TurnSpeed;
-        
+        public float JumpForce;
+
         private Rigidbody body;
 
         void Start()
@@ -36,7 +37,7 @@ namespace Movement
 
         public void Jump()
         {
-            throw new System.NotImplementedException();
+            body.AddForce(Vector3.up * JumpForce);
         }
 
         public void TurnRight()
@@ -51,7 +52,8 @@ namespace Movement
 
         public void Turn(float axis)
         {
-            
+            transform.Rotate(Vector3.up * TurnSpeed * axis);
+            //body.AddTorque(Vector3.up * TurnSpeed * axis * Time.deltaTime);
         }
     }
 }

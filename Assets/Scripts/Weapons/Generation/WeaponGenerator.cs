@@ -16,14 +16,13 @@ namespace Weapons.Generation
             stats.MinAccuracy = stats.Accuracy > AbsoluteMinAccuracy * 2
                 ? stats.Accuracy - 15
                 : AbsoluteMinAccuracy;
-            stats.AimDistance = 50f;
             stats.AimRecovery = 0.8f;
             stats.Quality = quality;
             stats.DamagePerRound = RandomService.GetRandom(genData.MinDamagePerRound, genData.MaxDamagePerRound);
-            stats.Range = RandomService.GetRandom(genData.MinRange, genData.MaxRange);
             stats.RateOfFire = RandomService.GetRandom(genData.MinRateOfFire, genData.MaxRateOfFire);
             stats.Recoil = RandomService.GetRandom(genData.MinRecoil, genData.MaxRecoil);
             stats.AmmoPerMag = RandomService.GetRandom(genData.MinAmmoPerMag, genData.MaxAmmoPerMag);
+            stats.ReloadTime = 1f;
 
             return stats;
         }
@@ -37,14 +36,13 @@ namespace Weapons.Generation
             stats.MinAccuracy = stats.Accuracy > AbsoluteMinAccuracy * 2
                 ? stats.Accuracy - 15
                 : AbsoluteMinAccuracy;
-            stats.AimDistance = 50f;
             stats.AimRecovery = 0.8f;
             stats.Quality = quality;
             stats.DamagePerRound = RandomService.GetRandom(genData.MinDamagePerRound, genData.MaxDamagePerRound);
-            stats.Range = RandomService.GetRandom(genData.MinRange, genData.MaxRange);
             stats.RateOfFire = RandomService.GetRandom(genData.MinRateOfFire, genData.MaxRateOfFire);
             stats.Recoil = RandomService.GetRandom(genData.MinRecoil, genData.MaxRecoil);
             stats.AmmoPerMag = RandomService.GetRandom(genData.MinAmmoPerMag, genData.MaxAmmoPerMag);
+            stats.ReloadTime = 1.5f;
 
             return stats;
         }
@@ -58,15 +56,14 @@ namespace Weapons.Generation
             stats.MinAccuracy = stats.Accuracy > AbsoluteMinAccuracy * 2
                 ? stats.Accuracy - 15
                 : AbsoluteMinAccuracy;
-            stats.AimDistance = 50f;
             stats.AimRecovery = 0.8f;
             stats.Quality = quality;
             stats.DamagePerRound = RandomService.GetRandom(genData.MinDamagePerRound, genData.MaxDamagePerRound);
-            stats.Range = RandomService.GetRandom(genData.MinRange, genData.MaxRange);
             stats.RateOfFire = RandomService.GetRandom(genData.MinRateOfFire, genData.MaxRateOfFire);
             stats.Recoil = RandomService.GetRandom(genData.MinRecoil, genData.MaxRecoil);
             stats.AmmoPerMag = RandomService.GetRandom(genData.MinAmmoPerMag, genData.MaxAmmoPerMag);
             stats.PelletCount = 8;
+            stats.ReloadTime = 2f;
 
             return stats;
         }

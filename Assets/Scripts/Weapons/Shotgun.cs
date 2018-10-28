@@ -17,7 +17,7 @@ namespace Weapons
 
         public override void Attack()
         {
-            if (!isCycling && CurrentAmmo > 0)
+            if (CanFire)
             {
                 foreach (var _ in Enumerable.Range(0, myStats.PelletCount))
                 {
@@ -41,7 +41,7 @@ namespace Weapons
             var ray = new Ray(cam.transform.position, shotLine);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, stats.Range, layer))
+            if (Physics.Raycast(ray, out hit, 100, layer))
             {
                 display.DisplayHitScenery(ray.GetPoint(hit.distance - 0.1f));
                 display.DisplayShot(hit.point);

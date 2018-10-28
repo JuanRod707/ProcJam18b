@@ -9,10 +9,10 @@
 
         float Accuracy { get; set; }
         float MinAccuracy { get; set; }
-        float AimDistance { get; set; }
 
-        float Range { get; set; }
         float Recoil { get; set; }
         float AimRecovery { get; set; }
+
+        float ReloadTime { get; set; }
     }
 }
