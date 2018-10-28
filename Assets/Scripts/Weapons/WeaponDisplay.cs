@@ -6,6 +6,7 @@ namespace Weapons
     {
         public Animator Animator;
         public ParticleSystem MuzzleFlash;
+        public ParticleSystem CaseEject;
 
         public GameObject HitParticle;
         public GameObject ShotLine;
@@ -16,6 +17,7 @@ namespace Weapons
         {
             Animator.SetTrigger("Fire");
             MuzzleFlash.Play();
+            CaseEject.Play();
             ShootSfx.Play();
         }
 
