@@ -39,8 +39,11 @@ namespace Weapons
 
         public void Reload()
         {
-            display.Reload();
-            StartCoroutine(WaitForReload());
+            if (!isReloading)
+            {
+                display.Reload();
+                StartCoroutine(WaitForReload());
+            }
         }
 
         void EndReload()
