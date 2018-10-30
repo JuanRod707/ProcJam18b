@@ -8,8 +8,8 @@ namespace Weapons.Generation
         public float MinRateOfFire;
         public float MaxRateOfFire;
 
-        public float MinDamagePerRound;
-        public float MaxDamagePerRound;
+        public int MinDamagePerRound;
+        public int MaxDamagePerRound;
 
         public int MinAmmoPerMag;
         public int MaxAmmoPerMag;

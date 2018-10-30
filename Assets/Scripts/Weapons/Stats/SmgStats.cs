@@ -4,7 +4,7 @@
     {
         public ItemQuality Quality { get; set; }
         public float RateOfFire { get; set; }
-        public float DamagePerRound { get; set; }
+        public int DamagePerRound { get; set; }
         public int AmmoPerMag { get; set; }
         public float Accuracy { get; set; }
         public float MinAccuracy { get; set; }

@@ -4,7 +4,7 @@
     {
         ItemQuality Quality { get; set; }
         float RateOfFire { get; set; }
-        float DamagePerRound { get; set; }
+        int DamagePerRound { get; set; }
         int AmmoPerMag { get; set; }
 
         float Accuracy { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Enemies;
 using UnityEngine;
 using Weapons.Stats;
 using Random = UnityEngine.Random;
@@ -62,6 +63,10 @@ namespace Weapons
                 
                 if (Physics.Raycast(ray, out hit, 100, layer))
                 {
+                    var hitPoint = hit.collider.GetComponent<HitPoint>();
+                    if (hitPoint)
+                        hitPoint.ReceiveDamage(stats.DamagePerRound);
+                    
                     display.DisplayHitScenery(ray.GetPoint(hit.distance - 0.1f));
                     display.DisplayShot(hit.point);
                 }

@@ -44,6 +44,9 @@ namespace Enemies
                 movement.TurnRight();
             else
                 movement.TurnLeft();
+
+            foreach (var w in weapons)
+                w.Aim(character);
         }
     }
 }

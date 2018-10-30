@@ -5,20 +5,71 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
-          <e p="ExtensionMethods.cs" t="Include" />
+          <e p="Common" t="Include">
+            <e p="AutoDispose.cs" t="Include" />
+          </e>
+          <e p="Effects" t="Include">
+            <e p="FireLightEffect.cs" t="Include" />
+          </e>
+          <e p="Enemies" t="Include">
+            <e p="BasicGhost.cs" t="Include" />
+            <e p="EnemyGun.cs" t="Include" />
+            <e p="EnemyHealth.cs" t="Include" />
+            <e p="HitPoint.cs" t="Include" />
+          </e>
+          <e p="Helpers" t="Include">
+            <e p="ExtensionMethods.cs" t="Include" />
+            <e p="RandomService.cs" t="Include" />
+          </e>
           <e p="LevelGen" t="Include">
             <e p="Level.cs" t="Include" />
+            <e p="PlayerSpawnPoint.cs" t="Include" />
             <e p="Section.cs" t="Include" />
+            <e p="Structure" t="Include">
+              <e p="WeightedList.cs" t="Include" />
+              <e p="WeightedListItem.cs" t="Include" />
+              <e p="WeightedSectionList.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Magic" t="Include">
+            <e p="MagicMissile.cs" t="Include" />
+            <e p="MagicMissileProjectile.cs" t="Include" />
+            <e p="Spell.cs" t="Include" />
+            <e p="SpellDisplay.cs" t="Include" />
+            <e p="Staff.cs" t="Include" />
           </e>
           <e p="Movement" t="Include">
             <e p="CameraLook.cs" t="Include" />
+            <e p="Character.cs" t="Include" />
             <e p="Input.cs" t="Include" />
             <e p="KinematicMovement.cs" t="Include" />
             <e p="Movement.cs" t="Include" />
             <e p="PhysicsMovement.cs" t="Include" />
           </e>
+          <e p="UI" t="Include">
+            <e p="AdvancedCrosshair.cs" t="Include" />
+          </e>
           <e p="Weapons" t="Include">
+            <e p="Generation" t="Include">
+              <e p="PistolGenerationPresets.cs" t="Include" />
+              <e p="ShotgunGenerationPresets.cs" t="Include" />
+              <e p="SmgGenerationPresets.cs" t="Include" />
+              <e p="WeaponGenerationData.cs" t="Include" />
+              <e p="WeaponGenerator.cs" t="Include" />
+            </e>
+            <e p="Pistol.cs" t="Include" />
+            <e p="Shotgun.cs" t="Include" />
+            <e p="Smg.cs" t="Include" />
+            <e p="Stats" t="Include">
+              <e p="ItemQuality.cs" t="Include" />
+              <e p="PistolStats.cs" t="Include" />
+              <e p="RifleStats.cs" t="Include" />
+              <e p="ShotgunStats.cs" t="Include" />
+              <e p="SmgStats.cs" t="Include" />
+              <e p="WeaponStats.cs" t="Include" />
+            </e>
             <e p="Weapon.cs" t="Include" />
+            <e p="WeaponBase.cs" t="Include" />
             <e p="WeaponDisplay.cs" t="Include" />
           </e>
         </e>
