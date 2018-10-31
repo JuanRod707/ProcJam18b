@@ -43,6 +43,7 @@ namespace Weapons
 
             if (Physics.Raycast(ray, out hit, 100, layer))
             {
+                DamageTarget(hit);
                 display.DisplayHitScenery(ray.GetPoint(hit.distance - 0.1f));
                 display.DisplayShot(hit.point);
             }

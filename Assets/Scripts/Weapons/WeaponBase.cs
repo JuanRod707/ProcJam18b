@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Enemies;
+using Player;
 using UnityEngine;
 using Weapons.Stats;
 using Random = UnityEngine.Random;
@@ -13,6 +14,7 @@ namespace Weapons
         public int CurrentAmmo { get; protected set; }
         public Camera cam;
         public LayerMask layer;
+        public AmmoType AmmoType;
 
         protected WeaponDisplay display;
         protected WeaponStats stats;
@@ -21,6 +23,7 @@ namespace Weapons
         protected int currentFiringMode;
         protected float accuracyModifier;
         protected float currentAccuracy;
+        protected PlayerStats player;
         
         public float CurrentAccuracy => currentAccuracy + accuracyModifier;
         public float Inaccuracy => 1 - (100f / CurrentAccuracy);
@@ -35,7 +38,10 @@ namespace Weapons
             currentAccuracy = this.stats.Accuracy;
             CurrentAmmo = this.stats.AmmoPerMag;
 
+            player = GameObject.Find("Player").GetComponent<PlayerStats>();
             display = GetComponent<WeaponDisplay>();
+
+            Reload();
         }
 
         public void Reload()
@@ -50,7 +56,15 @@ namespace Weapons
         void EndReload()
         {
             isReloading = false;
-            CurrentAmmo = stats.AmmoPerMag;
+            CalculateReload();
+            display.UpdateUI(CurrentAmmo, player.GetAmmo(AmmoType));
+        }
+
+        void CalculateReload()
+        {
+            player.AddAmmo(AmmoType, CurrentAmmo);
+            CurrentAmmo = player.GetAmmo(AmmoType) >= stats.AmmoPerMag ? stats.AmmoPerMag : player.GetAmmo(AmmoType);
+            player.SubstractAmmo(AmmoType, CurrentAmmo);
         }
 
         public virtual void Attack()
@@ -63,10 +77,7 @@ namespace Weapons
                 
                 if (Physics.Raycast(ray, out hit, 100, layer))
                 {
-                    var hitPoint = hit.collider.GetComponent<HitPoint>();
-                    if (hitPoint)
-                        hitPoint.ReceiveDamage(stats.DamagePerRound);
-                    
+                    DamageTarget(hit);
                     display.DisplayHitScenery(ray.GetPoint(hit.distance - 0.1f));
                     display.DisplayShot(hit.point);
                 }
@@ -77,9 +88,17 @@ namespace Weapons
                 }
 
                 CurrentAmmo--;
+                display.UpdateUI(CurrentAmmo, player.GetAmmo(AmmoType));
                 display.Fire();
                 StartCoroutine(CycleBullet());
             }
+        }
+
+        protected void DamageTarget(RaycastHit hit)
+        {
+            var hitPoint = hit.collider.GetComponent<HitPoint>();
+            if (hitPoint)
+                hitPoint.ReceiveDamage(stats.DamagePerRound);
         }
 
         protected void Update()

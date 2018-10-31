@@ -5,7 +5,10 @@ namespace Enemies
     public class EnemyHealth : MonoBehaviour
     {
         public int BaseHitPoints;
+        public int BaseManaShield;
+
         int currentHitPoints;
+        int currentManaShield;
 
         void Start()
         {

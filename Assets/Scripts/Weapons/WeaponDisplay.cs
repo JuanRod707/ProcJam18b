@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UI;
+using UnityEngine;
 
 namespace Weapons
 {
@@ -12,6 +14,13 @@ namespace Weapons
         public GameObject ShotLine;
         public AudioSource ShootSfx;
         public AudioSource ReloadSfx;
+
+        private StatusBar ui;
+
+        void Start()
+        {
+            ui = GameObject.Find("UI").GetComponentInChildren<StatusBar>();
+        }
 
         public void Fire()
         {
@@ -34,5 +43,7 @@ namespace Weapons
             //var shotLine = Instantiate(ShotLine).GetComponent<LineRenderer>();
             //shotLine.SetPositions(new[] { MuzzleFlash.transform.position, hitPoint });
         }
+
+        internal void UpdateUI(int currentAmmo, int ammoPool) => ui.UpdateAmmo(currentAmmo, ammoPool);
     }
 }
