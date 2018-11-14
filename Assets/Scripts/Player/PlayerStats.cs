@@ -1,36 +1,39 @@
 ﻿using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
 namespace Player
 {
     public class PlayerStats : MonoBehaviour
     {
+        public StatusBar UI;
+
         public int StartingPistolBullets;
         public int StartingSmgBullets;
         public int StartingShotgunShells;
 
-        private Dictionary<AmmoType, int> ammoInventory = new Dictionary<AmmoType, int>();
+        public int MaxPistolBullets;
+        public int MaxSmgBullets;
+        public int MaxShotgunShells;
+
+        private Dictionary<AmmoType, AmmoPool> ammoInventory = new Dictionary<AmmoType, AmmoPool>();
 
         void Start()
         {
-            ammoInventory.Add(AmmoType.Pistol, StartingPistolBullets);
-            ammoInventory.Add(AmmoType.Smg, StartingSmgBullets);
-            ammoInventory.Add(AmmoType.Shotgun, StartingShotgunShells);
+            ammoInventory.Add(AmmoType.Pistol, new AmmoPool(StartingPistolBullets, MaxPistolBullets));
+            ammoInventory.Add(AmmoType.Smg, new AmmoPool(StartingSmgBullets, MaxSmgBullets));
+            ammoInventory.Add(AmmoType.Shotgun, new AmmoPool(StartingShotgunShells, MaxShotgunShells));
         }
 
         public void AddAmmo(AmmoType ammoType, int amount) =>
-            ammoInventory[ammoType] += amount;
+            ammoInventory[ammoType].AddAmmo(amount);
 
+        public void SubstractAmmo(AmmoType ammoType, int amount) => ammoInventory[ammoType].SpendAmmo(amount);
 
-        public void SubstractAmmo(AmmoType ammoType, int amount)
-        {
-            if (ammoInventory[ammoType] >= amount)
-                ammoInventory[ammoType] -= amount;
-            else
-                ammoInventory[ammoType] = 0;
-        }
+        public int GetAmmo(AmmoType ammoType) => ammoInventory[ammoType].CurrentAmmo;
 
-        public int GetAmmo(AmmoType ammoType) => ammoInventory[ammoType];
+        public void UpdateUICounter(int currentAmmo, AmmoType ammoType) => 
+            UI.Ammo.SetValues(currentAmmo, ammoInventory[ammoType].CurrentAmmo);
     }
 
     public enum AmmoType
@@ -38,5 +41,28 @@ namespace Player
         Pistol,
         Smg,
         Shotgun
+    }
+
+    class AmmoPool
+    {
+        private int currentAmmo;
+        private int maxAmmo;
+
+        public AmmoPool(int starting, int max)
+        {
+            currentAmmo = starting;
+            maxAmmo = max;
+        }
+
+        public int CurrentAmmo => currentAmmo;
+
+        public void AddAmmo(int ammo)
+        {
+            currentAmmo += ammo;
+            currentAmmo = currentAmmo > maxAmmo ? maxAmmo : currentAmmo;
+        }
+
+        public void SpendAmmo(int amount) => 
+            currentAmmo = currentAmmo > amount ? currentAmmo - amount : 0;
     }
 }

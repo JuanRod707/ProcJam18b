@@ -20,7 +20,6 @@ namespace Weapons
         protected WeaponStats stats;
         protected bool isCycling;
         protected bool isReloading;
-        protected int currentFiringMode;
         protected float accuracyModifier;
         protected float currentAccuracy;
         protected PlayerStats player;
@@ -57,7 +56,7 @@ namespace Weapons
         {
             isReloading = false;
             CalculateReload();
-            display.UpdateUI(CurrentAmmo, player.GetAmmo(AmmoType));
+            player.UpdateUICounter(CurrentAmmo, AmmoType);
         }
 
         void CalculateReload()
@@ -88,9 +87,9 @@ namespace Weapons
                 }
 
                 CurrentAmmo--;
-                display.UpdateUI(CurrentAmmo, player.GetAmmo(AmmoType));
                 display.Fire();
                 StartCoroutine(CycleBullet());
+                player.UpdateUICounter(CurrentAmmo, AmmoType);
             }
         }
 

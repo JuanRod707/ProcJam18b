@@ -15,6 +15,10 @@ ModelImporter:
     400008: //RootNode
     2100000: Gray8
     2100002: Gray6
+    2100004: Mesh1_Group2_Group1_ModelMat
+    2100006: Mesh2_Group3_Group1_ModelMat
+    2100008: Mesh3_Group4_Group1_ModelMat
+    2100010: Mesh4_Group5_Group1_ModelMat
     2300000: Mesh1_Group2_Group1_Model
     2300002: Mesh2_Group3_Group1_Model
     2300004: Mesh3_Group4_Group1_Model
@@ -99,6 +103,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
