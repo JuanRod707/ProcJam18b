@@ -12,6 +12,7 @@ namespace LevelGen
         public GameObject[] DeadEnds;
         public string[] InitialSectionTags;
 
+        private bool spawnChamberCreated;
         private List<Collider> registeredColliders = new List<Collider>();
 
         public int LevelSize { get; private set; }
@@ -22,16 +23,10 @@ namespace LevelGen
             CreateInitialChamber();
         }
 
-        private void CreateInitialChamber()
-        {
-            Instantiate(PickSectionWithTag(InitialSectionTags), transform).GetComponent<Section>().Initialize(this);
-        }
+        private void CreateInitialChamber() => Instantiate(PickSectionWithTag(InitialSectionTags), transform).GetComponent<Section>().Initialize(this);
 
-        public bool IsSectionValid(Collider newSection, Collider sectionToIgnore)
-        {
-            return !registeredColliders.Except(new[] {sectionToIgnore})
-                .Any(c => c.bounds.Intersects(newSection.bounds));
-        }
+        public bool IsSectionValid(Collider newSection, Collider sectionToIgnore) => !registeredColliders.Except(new[] {sectionToIgnore})
+            .Any(c => c.bounds.Intersects(newSection.bounds));
 
         public void RegisterNewSection(Collider newSection)
         {
@@ -41,7 +36,14 @@ namespace LevelGen
 
         public GameObject PickSectionWithTag(string[] tags)
         {
-            return Sections.Where(x => x.GetComponent<Section>().Tags.Intersect(tags).Any()).PickOne();
+            if (!spawnChamberCreated && registeredColliders.Count > LevelSize && tags.Contains("spawn"))
+            {
+                spawnChamberCreated = true;
+                return Sections.Where(x => x.GetComponent<Section>().Tags.Contains("spawn")).PickOne();
+            }
+
+            return Sections.Where(x => x.GetComponent<Section>().Tags.Intersect(tags.Except(new[] { "spawn" })).Any())
+                .PickOne();
         }
     }
 }
